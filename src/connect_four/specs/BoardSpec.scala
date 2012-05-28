@@ -24,4 +24,33 @@ class BoardSpec extends Specification {
 	  
 	  indices must containAll(example)
 	}
+	
+	"should be able to test for bounded indices" in {
+	  var board = new Board
+	  def bounded(r: Int, c: Int) = board.isInBounds(new Index(r, c))
+	  bounded(0, 0) must be(true)
+	  bounded(6, 0) must be(false)
+	  bounded(0, 7) must be(false)
+	  bounded(-1, 0) must be(false)
+	  bounded(0, -1) must be (false)
+	  bounded(3,3) must be(true)
+	}
+	
+	"should be able to convert index objects to array indices" in {
+	  var board = new Board
+	  def convert(r: Int, c: Int) = board.fromIndex(new Index(r, c))
+	  
+	  convert(0, 0) must beSome(0)
+	  convert(0, 3) must beSome(3)
+	  convert(0, 6) must beSome(6)
+	  convert(1, 0) must beSome(7)
+	  convert(1, 1) must beSome(8)
+	  convert(2, 0) must beSome(14)
+	  convert(2, 1) must beSome(15)
+	  convert(-1, 0) must beNone
+	}
+	
+	"should return true for isEmpty upon creation" in {
+	  new Board().isEmpty() must be(true)
+	}
 }

@@ -23,4 +23,25 @@ class Board(val size: Size = new Size()) {
 	  }
 	  	yield new Index(row, col)
 	}
+	
+	def isEmpty() = {
+	  false
+	}
+	
+	def isInBounds(index: Index) = {
+	  val row = index.row
+	  val col = index.col 
+	  row >= 0 && row < size.height && col >= 0 && col < size.width 
+	}
+	
+	def fromIndex(index: Index): Option[Int] = {
+	  if(isInBounds(index)) {
+		  Some(index.row * size.width + index.col)
+	  }
+	  else None
+	}
+	
+	def move(marker: Int, index: Index) = {
+	  
+	}
 }

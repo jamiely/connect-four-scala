@@ -4,10 +4,11 @@ import connect_four._
 import org.specs._
 
 class BoardSpec extends Specification {
-	"Board has size with height of 6 and width 7" in {
+	"Board has size with height of 6 and width 7 and length of 42" in {
 	  val board = new Board
 	  board.size.width must be equalTo(7)
 	  board.size.height must be equalTo(6)
+	  board.length must be equalTo(42)
 	}
 	
 	"All of the board spaces should be empty" in {
@@ -47,10 +48,55 @@ class BoardSpec extends Specification {
 	  convert(1, 1) must beSome(8)
 	  convert(2, 0) must beSome(14)
 	  convert(2, 1) must beSome(15)
+	  convert(5, 6) must beSome(41)
 	  convert(-1, 0) must beNone
 	}
 	
 	"should return true for isEmpty upon creation" in {
 	  new Board().isEmpty() must be(true)
+	}
+	
+	"should return marker when updatePosition called" in {
+	  val board = new Board
+	  board.updatePosition(Markers.A, 0) must be equalTo((Markers.A, 0))
+	  board.updatePosition(Markers.A, 41) must be equalTo((Markers.A, 41))
+	}
+	
+	"should return true when move is valid" in {
+	  val board = new Board()
+	  val index = new Index(0, 2)
+	  board.move(Markers.A, index) must be(true)
+	}
+	"should return appropriate marker after move" in {
+	  val board = new Board()
+	  val index = new Index(0, 2)
+	  board.move(Markers.A, index)
+	  
+	  board.markerAt(index) must beSome(Markers.A)
+	}
+	"should return appropriate marker after move 2" in {
+	  val board = new Board()
+	  val index = new Index(5, 6)
+	  board.move(Markers.A, index)
+	  
+	  board.markerAt(index) must beSome(Markers.A)
+	}	
+	"should return posIs true when appropriate" in {
+	  val board = new Board()
+	  val index = new Index(0, 2)
+	  board.move(Markers.A, index)
+	  
+	  board.posIs(Markers.A, index) must be(true)
+	  board.posIs(Markers.B, index) must be(false)
+	}
+	
+	"it should be possible to detect when there are no moves remaining" in {
+	  val board = new Board
+	  board.hasMovesLeft() must be(true)
+	  board.getPositionIndices().foreach(i => {
+	      //println(board.fromIndex(i))
+		  board.move(Markers.A, i)
+	  })
+	  board.hasMovesLeft() must be(false)
 	}
 }

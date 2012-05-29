@@ -13,7 +13,8 @@ class Index(val row: Int, val col: Int) {
 class Size(val width: Int = 7, val height: Int = 6)
 
 class Board(val size: Size = new Size()) {
-	val board = for (_ <- List.range(1, size.width * size.height)) yield Markers.Empty
+	val length = size.width * size.height
+	val board = (for (_ <- List.range(0, length)) yield Markers.Empty).toArray
 	
 	// Return a list of index objects
 	def getPositionIndices() = {
@@ -25,7 +26,7 @@ class Board(val size: Size = new Size()) {
 	}
 	
 	def isEmpty() = {
-	  false
+	  board.forall(x => x == Markers.Empty)
 	}
 	
 	def isInBounds(index: Index) = {
@@ -41,7 +42,39 @@ class Board(val size: Size = new Size()) {
 	  else None
 	}
 	
-	def move(marker: Int, index: Index) = {
+	def move(marker: Int, index: Index): Boolean = {
+	  val pos: Option[Int] = for {
+	    pos <- fromIndex(index)
+	    _ <- Some(updatePosition(marker, pos))
+	  } yield pos
+	  !pos.isEmpty
+	}
+	
+	// Updates the given position without performing a check. 
+	// @returns		Returns a pair of the marker that was put at the position and the position.
+	def updatePosition(marker: Int, position: Int) = {
+	  board(position) = marker
+	  (marker, position)
+	}
+	
+	def markerAt(index: Index): Option[Int] = {
+	  for {
+	    pos <- fromIndex(index)
+	    m <- Some(board(pos))
+	  } yield m
+	}
+	
+	def posIs(marker: Int, index: Index) = {
+	  val result: Option[Boolean] = for {
+	    m <- markerAt(index)
+	    // return the result of a check against the marker
+	    result <- Some(m == marker)
+	  } yield result
 	  
+	  result.getOrElse(false)
+	}
+	
+	def hasMovesLeft() = {
+	  board.exists(x => x == Markers.Empty)
 	}
 }

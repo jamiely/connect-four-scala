@@ -48,4 +48,16 @@ class Game {
 	    result == Some(true)
 	  }
 	}
+	
+	def move(mv: Move): Option[Int] = {
+	  None
+	}
+	
+	def markerAt(index:Index): Option[Int] = {
+	  board.markerAt(index)
+	}
+	
+	def getCurrentMarker(): Int = {
+	  Markers.Empty
+	}
 }

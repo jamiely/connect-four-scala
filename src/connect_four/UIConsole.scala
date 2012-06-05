@@ -28,16 +28,16 @@ object UIConsole extends Application {
   def render = {
     println("Board:")
     val b = game.board
-    for(r <- List.range(0, b.size.height)) {
-      for(c <- List.range(0,b.size.width)) {
+    val xRange = 0 to b.size.width-1
+    for(r <- 0 to b.size.height-1) {
+      for(c <- xRange) {
         for {
           m <- game.markerAt(new Index(r,c))
-          _ <- Some(print(markerIntToString(m)))
-        } yield m
+        } print(markerIntToString(m))
       }
       println("")
     }
-    for(c <- List.range(0,b.size.width)) {
+    for(c <- xRange) {
       print(c)
     }
     println("")
@@ -48,7 +48,7 @@ object UIConsole extends Application {
   }
   
   def markerIntToString(marker:Int): String = marker match {
-    case Markers.Empty => "_"
+    case Markers.Empty => "-"
     case Markers.A => "X"
     case Markers.B => "O"
     case _ => "?"

@@ -40,7 +40,7 @@ class GamePlaySpec extends Specification {
 	    val a = new Move(1)
 	    val b = new Move(2)
 	    
-	    List.range(1, 4).foreach(_ => {
+	    (1 to 3).foreach(_ => {
 	    	game.move(a)
 	    	game.move(b)
 	    })
@@ -51,7 +51,7 @@ class GamePlaySpec extends Specification {
 	  
 	  "not allow a move to be made in a full column" in {
 	    val move = new Move(1)
-	    List.range(1, game.board.size.height+1).foreach(_ =>
+	    (1 to game.board.size.height).foreach(_ =>
 	      game.move(move))
 	    game.move(move) must beNone
 	  }

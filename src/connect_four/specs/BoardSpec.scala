@@ -17,7 +17,7 @@ class BoardSpec extends SpecificationWithJUnit {
       }
 	  
   	  "be empy" in {
-  		  board.isEmpty() must beEqualTo(true)
+  		  board.isEmpty must beEqualTo(true)
 	  }
 
 	  
@@ -89,14 +89,14 @@ class BoardSpec extends SpecificationWithJUnit {
 		}
 		
 		"have available moves" in {
-			board.hasMovesLeft() must beEqualTo(true)
+			board.hasMovesLeft must beEqualTo(true)
 		}
 
 		"detect when there are no moves remaining" in {
 			board.getPositionIndices().foreach(i => {
 				board.move(Markers.A, i)
 			})
-			board.hasMovesLeft() must beEqualTo(false)
+			board.hasMovesLeft must beEqualTo(false)
 		}
 
     }

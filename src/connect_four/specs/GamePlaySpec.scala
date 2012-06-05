@@ -28,12 +28,12 @@ class GamePlaySpec extends Specification {
 	  }
 	  
 	  "alternate between two markers 1" in {
-	    game.getCurrentMarker() must beEqualTo(Markers.A)
+	    game.getCurrentMarker must beEqualTo(Markers.A)
 	  }
 	  
 	  "alternate between two markers 2" in {
 	    game.move(new Move(1))
-	    game.getCurrentMarker() must beEqualTo(Markers.B)
+	    game.getCurrentMarker must beEqualTo(Markers.B)
 	  }
 	  
 	  "detect a win when someone gets a vertical match" in {
@@ -46,7 +46,7 @@ class GamePlaySpec extends Specification {
 	    })
 	    
 	    game.move(a)
-	    game.isWin()
+	    game.isWin
 	  }
 	  
 	  "not allow a move to be made in a full column" in {

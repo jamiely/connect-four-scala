@@ -25,9 +25,7 @@ class Board(val size: Size = new Size()) {
 	  	yield new Index(row, col)
 	}
 	
-	def isEmpty() = {
-	  board.forall(x => x == Markers.Empty)
-	}
+	def isEmpty = board.forall(x => x == Markers.Empty)
 	
 	def isInBounds(index: Index) = {
 	  val row = index.row
@@ -74,7 +72,6 @@ class Board(val size: Size = new Size()) {
 	  result.getOrElse(false)
 	}
 	
-	def hasMovesLeft() = {
-	  board.exists(x => x == Markers.Empty)
-	}
+	def hasMovesLeft = board.exists(x => x == Markers.Empty)
+	
 }

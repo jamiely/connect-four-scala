@@ -50,11 +50,11 @@ class GameOverSpec extends Specification {
 	  }
 	  
 	  "it shouldn't be a player's win at the beginning" in {
-		  untouchedGame.isWin() must beEqualTo(false)
+		  untouchedGame.isWin must beEqualTo(false)
 	  }
 	  
 	  "it shouldn't be a player's win at using the vertical line board" in {
-		  game.isWin() must beEqualTo(true)
+		  game.isWin must beEqualTo(true)
 	  }
 	}
 }

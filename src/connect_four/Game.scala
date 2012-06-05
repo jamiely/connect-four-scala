@@ -27,9 +27,9 @@ class Game {
 	    }	 
 	}
 	  
-	def isWin():Boolean = {
+	def isWin:Boolean = 
 	  board.getPositionIndices().exists(testWinAtIndex)
-	}
+	
 	
 	def testWinAtIndex(index:Index): Boolean = {
 	  // get the value of the board at the passed index
@@ -71,18 +71,18 @@ class Game {
 	  }
 	} 
 	
-	def toggleMarker(): Int = {
+	def toggleMarker: Int = {
 	  currentMarker = if(currentMarker == Markers.A) Markers.B else Markers.A
 	  currentMarker
 	}
 	
 	def updateBoard(index: Index): Int = {
 	  board.move(currentMarker, index)
-	  toggleMarker()
+	  toggleMarker
 	}
 	
 	def move(mv: Move): Option[Int] = {
-	  if(isWin()) {
+	  if(isWin) {
 	    None
 	  }
 	  else {
@@ -93,11 +93,8 @@ class Game {
 	  }
 	}
 	
-	def markerAt(index:Index): Option[Int] = {
-	  board.markerAt(index)
-	}
+	def markerAt(index:Index): Option[Int] = board.markerAt(index)
 	
-	def getCurrentMarker(): Int = {
-	  currentMarker
-	}
+	def getCurrentMarker: Int = currentMarker
+	
 }

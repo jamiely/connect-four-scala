@@ -17,7 +17,7 @@ object UIConsole extends Application {
     
     render
     
-    if(game.isWin()) {
+    if(game.isWin) {
       println("Someone won!")
       exit
     }
@@ -25,7 +25,7 @@ object UIConsole extends Application {
     askMove
   }
   
-  def render() = {
+  def render = {
     println("Board:")
     val b = game.board
     for(r <- List.range(0, b.size.height)) {
@@ -43,7 +43,7 @@ object UIConsole extends Application {
     println("")
   }
   
-  def askMove() = {
+  def askMove = {
     println(markerIntToString(game.currentMarker) + "'s move?")
   }
   

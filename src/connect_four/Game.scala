@@ -38,23 +38,21 @@ class Game {
 	}
 	
 	def getFirstEmptyRowInColumn(c: Int): Option[Int] = {
+      def helper(row: Int): Int = {
+	    if (row < 0) {
+	      row
+  	    } else {
+	      val marker = markerAt(new Index(row, c))
+	      if (marker == Some(Markers.Empty)) row else helper(row - 1)
+	    }
+	  }
+  
 	  if(!board.isInBounds(new Index(0, c))) {
 	    None
 	  }
 	  else {
-	    def helper(row: Int): Int = {
-	      if(row < 0) {
-	        row
-	      }
-	      else {
-	        val marker = markerAt(new Index(row, c))
-	        if(marker == Some(Markers.Empty)) row else helper(row - 1)
-	      }
-	    }
-	    for {
-	      r <- Some(helper(board.size.height-1))
-	      result <- if(r < 0) None else Some(r)
-	    } yield result
+	    val r = helper(board.size.height-1)
+	    if(r < 0) None else Some(r)
 	  }
 	} 
 	

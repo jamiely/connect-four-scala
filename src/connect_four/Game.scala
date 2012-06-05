@@ -30,21 +30,10 @@ class Game {
 	
 	
 	def testWinAtIndex(index:Index): Boolean = {
-	  // get the value of the board at the passed index
-	  val marker = board.markerAt(index)
-	  
-	  // None will be returned if the index is out of bounds.
-	  // In that case, or an empty marker, we do NOT have a win
-	  if(marker == Some(Markers.Empty) || marker == None) {
-	    false
-	  }
-	  else {
-	    // 
-	    val result = for {
-	        m <- marker
-	    	result <- Some(directions.exists(delta => checkPosition(index, m, delta, 4)))
-	    } yield result
-	    result == Some(true)
+	  board.markerAt(index) match {
+	    case None => false
+	    case Some(Markers.Empty) => false
+	    case Some(m) => directions.exists(delta => checkPosition(index, m, delta, 4))  
 	  }
 	}
 	

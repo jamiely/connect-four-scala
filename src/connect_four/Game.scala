@@ -71,14 +71,14 @@ class Game {
 	  }
 	} 
 	
-	def toggleMarker: Int = {
+	def toggleMarker(): Int = {
 	  currentMarker = if(currentMarker == Markers.A) Markers.B else Markers.A
 	  currentMarker
 	}
 	
 	def updateBoard(index: Index): Int = {
 	  board.move(currentMarker, index)
-	  toggleMarker
+	  toggleMarker()
 	}
 	
 	def move(mv: Move): Option[Int] = {

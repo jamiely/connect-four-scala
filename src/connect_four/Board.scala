@@ -1,5 +1,7 @@
 package connect_four
 
+import connect_four._
+
 class Index(val row: Int, val col: Int) {
 	def tuple(): (Int, Int) = (row, col)
 }
@@ -34,7 +36,7 @@ class Board(val size: Size = new Size()) {
 	  else None
 	}
 	
-	def move(marker: Int, index: Index): Boolean = {
+	def move(marker: Markers.Marker, index: Index): Boolean = {
 	  val pos: Option[Int] = for {
 	    pos <- fromIndex(index)
 	    _ <- Some(updatePosition(marker, pos))
@@ -44,19 +46,19 @@ class Board(val size: Size = new Size()) {
 	
 	// Updates the given position without performing a check. 
 	// @returns		Returns a pair of the marker that was put at the position and the position.
-	def updatePosition(marker: Int, position: Int) = {
+	def updatePosition(marker: Markers.Marker, position: Int) = {
 	  board(position) = marker
 	  (marker, position)
 	}
 	
-	def markerAt(index: Index): Option[Int] = {
+	def markerAt(index: Index): Option[Markers.Marker] = {
 	  for {
 	    pos <- fromIndex(index)
 	    m <- Some(board(pos))
 	  } yield m
 	}
 	
-	def posIs(marker: Int, index: Index) = {
+	def posIs(marker: Markers.Marker, index: Index) = {
 	  val result: Option[Boolean] = for {
 	    m <- markerAt(index)
 	    // return the result of a check against the marker

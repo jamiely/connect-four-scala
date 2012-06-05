@@ -1,8 +1,8 @@
 package connect_four
 
-object Markers {
-  val Empty = 0
-  val A = 1
-  val B = 2
+object Markers extends Enumeration {
+  type Marker = Value
+  val Empty, A, B = Value
 }
+
 

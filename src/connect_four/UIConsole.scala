@@ -47,7 +47,7 @@ object UIConsole extends Application {
     println(markerIntToString(game.currentMarker) + "'s move?")
   }
   
-  def markerIntToString(marker:Int): String = marker match {
+  def markerIntToString(marker:Markers.Marker): String = marker match {
     case Markers.Empty => "-"
     case Markers.A => "X"
     case Markers.B => "O"

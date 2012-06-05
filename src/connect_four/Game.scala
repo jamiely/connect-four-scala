@@ -12,7 +12,7 @@ class Game {
 	  if !(i==0 && j==0)
 	  } yield (i, j)).toList
 	  
-	def checkPosition(index:Index, marker:Int, delta: (Int, Int), steps: Int): Boolean = {
+	def checkPosition(index:Index, marker:Markers.Marker, delta: (Int, Int), steps: Int): Boolean = {
 	    if(steps == 0) {
 	    	true
 	    }
@@ -56,17 +56,17 @@ class Game {
 	  }
 	} 
 	
-	def toggleMarker(): Int = {
+	def toggleMarker(): Markers.Marker = {
 	  currentMarker = if(currentMarker == Markers.A) Markers.B else Markers.A
 	  currentMarker
 	}
 	
-	def updateBoard(index: Index): Int = {
+	def updateBoard(index: Index): Markers.Marker = {
 	  board.move(currentMarker, index)
 	  toggleMarker()
 	}
 	
-	def move(mv: Move): Option[Int] = {
+	def move(mv: Move): Option[Markers.Marker] = {
 	  if(isWin) {
 	    None
 	  }
@@ -78,8 +78,8 @@ class Game {
 	  }
 	}
 	
-	def markerAt(index:Index): Option[Int] = board.markerAt(index)
+	def markerAt(index:Index): Option[Markers.Marker] = board.markerAt(index)
 	
-	def getCurrentMarker: Int = currentMarker
+	def getCurrentMarker: Markers.Marker = currentMarker
 	
 }

@@ -16,14 +16,12 @@ class Game {
 	    if(steps == 0) {
 	    	true
 	    }
+	    else if (board.isInBounds(index) && board.posIs(marker, index)) {
+	    	val newIndex = new Index(index.row + delta._1, index.col + delta._2)
+	    	checkPosition(newIndex, marker, delta, steps-1)
+	    }
 	    else {
-	    	if (board.isInBounds(index) && board.posIs(marker, index)) {
-	    	  val newIndex = new Index(index.row + delta._1, index.col + delta._2)
-	    	  checkPosition(newIndex, marker, delta, steps-1)
-	    	}
-	    	else {
-	    	  false
-	    	}
+	    	false
 	    }	 
 	}
 	  

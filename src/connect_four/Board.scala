@@ -14,13 +14,13 @@ class Size(val width: Int = 7, val height: Int = 6)
 
 class Board(val size: Size = new Size()) {
 	val length = size.width * size.height
-	val board = (for (_ <- List.range(0, length)) yield Markers.Empty).toArray
+	val board = (for (_ <- 0 to length-1) yield Markers.Empty).toArray
 	
 	// Return a list of index objects
 	def getPositionIndices() = {
 	  for {
-		  row <- List.range(0, size.height)
-		  col <- List.range(0, size.width)
+		  row <- 0 to size.height-1
+		  col <- 0 to size.width-1
 	  }
 	  	yield new Index(row, col)
 	}

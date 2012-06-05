@@ -6,11 +6,11 @@ class Game {
 	val board = new Board
 	var currentMarker = Markers.A
 	// directions are deltas used to check board locations in the cardinal directions
-	val directions = for {
-	  i <- List.range(-1, 2); 
-	  j <- List.range(-1, 2);
+	val directions = (for {
+	  i <- -1 to 1 
+	  j <- -1 to 1
 	  if !(i==0 && j==0)
-	  } yield (i, j)
+	  } yield (i, j)).toList
 	  
 	def checkPosition(index:Index, marker:Int, delta: (Int, Int), steps: Int): Boolean = {
 	    if(steps == 0) {

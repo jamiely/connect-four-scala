@@ -1,11 +1,5 @@
 package connect_four
 
-object Markers {
-  val Empty = 0
-  val A = 1
-  val B = 2
-}
-
 class Index(val row: Int, val col: Int) {
 	def tuple(): (Int, Int) = (row, col)
 }

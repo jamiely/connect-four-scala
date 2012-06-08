@@ -6,37 +6,54 @@ This was written for practice with Scala.
 
 ## Building
 
-Eclipse Indigo was used to develop the source. You should be able to
-compile with the following commands:
+Use sbt to run. 
 
-    scalac -classpath lib/specs2_2.9.2-1.10.jar:lib/specs2-scalaz-core_2.9.2-6.0.1.jar:bin -d bin src/connect_four/*.scala src/connect_four/specs/*.scala
+    brew install sbt
+    sbt
+    sbt> compile
+
+If you encounter an OutOfMemory exception when compiling, use the
+following command to run *sbt*
+
+    env SBT_OPTS="-XX:MaxPermSize=256M" sbt
 
 ## Using
 
 There is a simple console UI you can run using:
 
-    scala -cp bin connect_four.UIConsole
+    sbt> run
 
 ## Spec Running
 
+You can use *sbt* to run the tests. 
+
+    sbt> test
+
 Specs use the specs scala library available here: http://code.google.com/p/specs/.
 
-Specs are provided as part of the `connect_four.specs` package. You can
-run them with the following command:
-
-    for i in BoardSpec GameSpec GamePlaySpec GameOverSpec
-      scala -cp lib/specs2_2.9.2-1.10.jar:lib/specs2-scalaz-core_2.9.2-6.0.1.jar:bin specs2.run connect_four.specs.$i
-    
+Specs are provided as part of the `connect_four.specs` package. 
 
 You should expect a result that looks like the following:
 
-> Specification "BoardSpec"
->   + Board has size with height of 6 and width 7
->   + All of the board spaces should be empty
->   + should have appropriate position indices
-> Total for specification "BoardSpec":
-> Finished in 0 second, 118 ms
-> 3 examples, 4 expectations, 0 failure, 0 error
-
-
+> [info] BoardSpec
+> [info] 
+> [info] A new board should
+> [info] + have a height of 6, width of 7, and length of 42
+> [info] + be empy
+> [info] + have empty spaces
+> [info] + have appropriate position indices
+> [info] + test for bounded indices
+> [info] + convert index objects to array indices
+> [info] + return a marker when updatePosition called
+> [info] + return true when move is valid
+> [info] + return appropriate marker after move
+> [info] + return appropriate marker after move 2
+> [info] + should return posIs true when appropriate
+> [info] + have available moves
+> [info] + detect when there are no moves remaining
+> [info]  
+> [info]  
+> [info] Total for specification BoardSpec
+> [info] Finished in 501 ms
+> [info] 13 examples, 30 expectations, 0 failure, 0 error
 

@@ -2,6 +2,8 @@ package connect_four
 
 import connect_four._
 
+class Move (val col: Int)
+
 class Game {
 	val board = new Board
 	var currentMarker = Markers.A

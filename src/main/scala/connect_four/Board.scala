@@ -2,6 +2,11 @@ package connect_four
 
 import connect_four._
 
+object Markers extends Enumeration {
+  type Marker = Value
+  val Empty, A, B = Value
+}
+
 class Index(val row: Int, val col: Int) {
 	def tuple(): (Int, Int) = (row, col)
 }

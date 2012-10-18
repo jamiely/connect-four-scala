@@ -14,7 +14,7 @@ class BoardSpec extends Specification {
 	    		board.length == 42
       }
 	  
-  	  "be empy" in {
+  	  "be empty" in {
   		  board.isEmpty must beEqualTo(true)
 	  }
 

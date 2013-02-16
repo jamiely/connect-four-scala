@@ -4,8 +4,7 @@
 
 This was written for practice with Scala.
 
-[![Continuous Integration status](https://api.travis-ci.org/jamiely/connect-four-scala.png)](https://travis-ci.org/jamiely/connect-four-scala)
-
+[![Build Status](https://travis-ci.org/jamiely/connect-four-scala.png?branch=master)](https://travis-ci.org/jamiely/connect-four-scala)
 
 ## Building
 

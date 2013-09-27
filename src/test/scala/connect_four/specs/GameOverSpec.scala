@@ -17,10 +17,11 @@ class GameOverSpec extends Specification {
       // ['', '', 'a', '', '', '', ''],
       // ['', '', 'a', '', '', '', '']
 
-	  val verticalLineBoard = game.board
-	  def vert(row: Int) = {
-	    verticalLineBoard.move(Markers.A, new Index(row,2))
-	  }
+	  def vert(row: Int) = game.board.move(Markers.A, new Index(row,2)) match {
+      case Some(BoardUpdate(board, _, _)) => game.board = board
+      case None => println("error")
+    }
+
 	  vert(0)
 	  vert(1)
 	  vert(2)

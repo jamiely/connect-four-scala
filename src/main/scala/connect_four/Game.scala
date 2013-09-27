@@ -3,7 +3,7 @@ package ly.jamie.games.connect_four
 case class Move (col: Int)
 
 class Game {
-	val board = new Board
+	var board = new Board
 	var currentMarker = Markers.A
 
 	// directions are deltas used to check board locations in the cardinal directions
@@ -52,8 +52,15 @@ class Game {
 	}
 	
 	def updateBoard(index: Index): Markers.Marker = {
-	  board.move(currentMarker, index)
-	  toggleMarker()
+    var marker = currentMarker
+	  board = board.move(currentMarker, index) match {
+      case Some(BoardUpdate(newBoard, _, _)) => {
+        marker = toggleMarker()
+        newBoard
+      }
+      case _ => board
+    }
+    marker
 	}
 	
 	def move(mv: Move): Option[Markers.Marker] =

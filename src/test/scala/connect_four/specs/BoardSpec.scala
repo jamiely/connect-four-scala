@@ -55,35 +55,42 @@ class BoardSpec extends Specification {
 		}
 
 		"return a marker when updatePosition called" in {
-			board.updatePosition(Markers.A, 0) == (Markers.A, 0) and
-				board.updatePosition(Markers.A, 41) == (Markers.A, 41)
+			(board.updatePosition(Markers.A, 0) match {
+        case BoardUpdate(_, marker, pos) => (marker, pos) == (Markers.A, 0)
+        case _ => false
+      }) &&
+      (board.updatePosition(Markers.A, 41) match {
+        case BoardUpdate(_, marker, pos) => (marker, pos) == (Markers.A, 41)
+        case _ => false
+      })
 		}
 
 		"return true when move is valid" in {
 			val index = new Index(0, 2)
-			board.move(Markers.A, index) must beEqualTo(true)
+			board.move(Markers.A, index) must beSome
 		}
 		
 		"return appropriate marker after move" in {
 			val index = new Index(0, 2)
-			
-			board.move(Markers.A, index)
-			
-			board.markerAt(index) must beSome(Markers.A)
+
+      board.move(Markers.A, index).flatMap { update =>
+        update.board.markerAt(index)
+      } must beSome(Markers.A)
 		}
 		"return appropriate marker after move 2" in {
 			val index = new Index(5, 6)
-			board.move(Markers.A, index)
-			
-			board.markerAt(index) must beSome(Markers.A)
+
+      board.move(Markers.A, index).flatMap { update =>
+        update.board.markerAt(index)
+      } must beSome(Markers.A)
 		}	
 		
 		"should return posIs true when appropriate" in {
 			val index = new Index(0, 2)
-			board.move(Markers.A, index)
-			
-			board.posIs(Markers.A, index) and
-				! board.posIs(Markers.B, index)
+      board.move(Markers.A, index).map { update =>
+        update.board.posIs(Markers.A, index) &&
+          ! update.board.posIs(Markers.B, index)
+      } must beSome(true)
 		}
 		
 		"have available moves" in {
@@ -91,10 +98,15 @@ class BoardSpec extends Specification {
 		}
 
 		"detect when there are no moves remaining" in {
-			board.getPositionIndices().foreach(i => {
-				board.move(Markers.A, i)
-			})
-			board.hasMovesLeft must beEqualTo(false)
+      val finalBoard = board.getPositionIndices().
+        foldLeft(board) { (b: Board, index: Index) =>
+          b.move(Markers.A, index) match {
+            case Some(update: BoardUpdate) => update.board
+            case _ => b
+          }
+        }
+
+			finalBoard.hasMovesLeft must beEqualTo(false)
 		}
 
     }

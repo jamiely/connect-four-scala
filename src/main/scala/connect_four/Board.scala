@@ -11,9 +11,14 @@ case class Index(row: Int, col: Int) {
 
 case class Size(width: Int = 7, height: Int = 6)
 
-case class Board(size: Size = Size()) {
-	val length = size.width * size.height
-	val board = (for (_ <- 0 to length-1) yield Markers.Empty).toArray
+case class BoardUpdate(board: Board, marker: Markers.Marker, position: Int)
+
+case class Board(size: Size, length: Int, board: Seq[Markers.Marker]) {
+
+  def this(size: Size) = this(size, size.width * size.height,
+    IndexedSeq.fill(size.width * size.height)(Markers.Empty))
+
+  def this() = this(Size())
 	
 	// Return a list of index objects
 	def getPositionIndices(): IndexedSeq[Index] = 
@@ -29,21 +34,14 @@ case class Board(size: Size = Size()) {
 	  if(isInBounds(index)) Some(index.row * size.width + index.col)
 	  else None
 	
-	def move(marker: Markers.Marker, index: Index): Boolean = {
-	  val pos: Option[Int] = for {
-	    pos <- fromIndex(index)
-	    _ <- Some(updatePosition(marker, pos))
-	  } yield pos
-	  !pos.isEmpty
-	}
+	def move(marker: Markers.Marker, index: Index): Option[BoardUpdate] =
+	  fromIndex(index).map { updatePosition(marker, _) }
 	
 	// Updates the given position without performing a check. 
 	// @returns		Returns a pair of the marker that was put at the position and the position.
-	def updatePosition(marker: Markers.Marker, position: Int):
-  (Markers.Marker, Int) = {
-	  board(position) = marker
-	  (marker, position)
-	}
+	def updatePosition(marker: Markers.Marker, position: Int): BoardUpdate = 
+    BoardUpdate(Board(size, length, board.updated(position, marker)), 
+                marker, position)
 	
 	def markerAt(index: Index): Option[Markers.Marker] =
 	  for {

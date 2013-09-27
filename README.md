@@ -11,8 +11,7 @@ This was written for practice with Scala.
 Use sbt to run. 
 
     brew install sbt
-    sbt
-    sbt> compile
+    sbt compile
 
 If you encounter an OutOfMemory exception when compiling, use the
 following command to run *sbt*
@@ -23,13 +22,13 @@ following command to run *sbt*
 
 There is a simple console UI you can run using:
 
-    sbt> run
+    sbt run
 
 ## Spec Running
 
 You can use *sbt* to run the tests. 
 
-    sbt> test
+    sbt test
 
 Specs use the specs scala library available here: http://code.google.com/p/specs/.
 

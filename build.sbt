@@ -1,8 +1,12 @@
 name := "connect_four"
 
-version := "0.1.0"
+organization := "ly.jamie.games"
 
-scalaVersion := "2.9.2"
+version := "0.1.1"
 
-libraryDependencies += "org.specs2" %% "specs2" % "1.11" % "test"
+scalaVersion := "2.10.2"
+
+libraryDependencies += "org.specs2" %% "specs2" % "2.2.2" % "test"
+
+scalacOptions ++= Seq("-unchecked", "-deprecation")
 

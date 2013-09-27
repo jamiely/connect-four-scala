@@ -1,4 +1,4 @@
-package connect_four
+package ly.jamie.games.connect_four
 
 object UIConsole {
   val game = new Game
@@ -11,8 +11,7 @@ object UIConsole {
     for(ln <- io.Source.stdin.getLines ) {
       if(ln == "exit" || ln == "quit") return
       
-      println("Your move was: ")
-      println(ln)
+      println(s"Your move was: \n$ln")
       
       try {
         val column = Integer.parseInt(ln)
@@ -51,9 +50,7 @@ object UIConsole {
     println("")
   }
   
-  def askMove = {
-    println(markerIntToString(game.currentMarker) + "'s move?")
-  }
+  def askMove = println(markerIntToString(game.currentMarker) + "'s move?")
   
   def markerIntToString(marker:Markers.Marker): String = marker match {
     case Markers.Empty => "-"

@@ -1,6 +1,6 @@
 package connect_four.specs
 
-import connect_four._
+import ly.jamie.games.connect_four._
 import org.specs2.mutable._
 
 class GameOverSpec extends Specification {

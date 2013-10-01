@@ -13,6 +13,10 @@ class Game {
 	  if !(i==0 && j==0)
 	  } yield (i, j)).toList
 	  
+  /**
+   * From the passed index, checks whether the position in the passed direction/delta
+   * contains the passed marker, and does this `steps` in that direction.
+   */
 	def checkPosition(index:Index, marker:Markers.Marker, 
      delta: (Int, Int), steps: Int): Boolean = 
 	    if(steps == 0) true

@@ -1,5 +1,6 @@
 package ly.jamie.games.connect_four
 
+// scalastyle:off regex
 object UIConsole {
   val game = new Game
 
@@ -14,7 +15,7 @@ object UIConsole {
     }
   }
 
-  def exit = {
+  def exit {
     println("Exiting...")
     System.exit(0)
   }
@@ -41,14 +42,16 @@ object UIConsole {
     if (game.isWin) {
       println("Someone won!")
       GameOver
-    } else InProgress
+    } else {
+      InProgress
+    }
   }
 
   def optionParse(string: String): Option[Int] =
     try { Some(string.toInt) }
     catch { case e: NumberFormatException => None }
 
-  def start = {
+  def start {
     println("Starting game. Enter a column number to move to. Use 0-based indices. Type exit or quit to stop.")
     render
   }
@@ -57,7 +60,7 @@ object UIConsole {
     Iterator.continually(scala.io.StdIn.readLine).
       takeWhile(!List("exit", "quit").contains(_))
 
-  def render = {
+  def render {
     println("Board:")
     val b = game.board
     val xRange = 0 to b.size.width - 1
@@ -74,7 +77,9 @@ object UIConsole {
     println("")
   }
 
-  def askMove = println(markerIntToString(game.currentMarker) + "'s move?")
+  def askMove {
+    println(markerIntToString(game.currentMarker) + "'s move?")
+  }
 
   def markerIntToString(marker: Markers.Marker): String = marker match {
     case Markers.Empty => "-"

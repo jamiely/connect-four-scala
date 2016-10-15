@@ -10,7 +10,7 @@ case class Index(row: Int, col: Int) {
 }
 
 object Size {
-  val default = Size(width = 7, height = 6)
+  val default = Size(width = 7, height = 6) // scalastyle:ignore
 }
 case class Size(width: Int, height: Int)
 
@@ -40,14 +40,17 @@ case class Board(size: Size, board: Seq[Markers.Marker]) {
     index.row < size.height && index.col >= 0 && index.col < size.width
 
   def fromIndex(index: Index): Option[Int] =
-    if (isInBounds(index)) Some(index.row * size.width + index.col)
-    else None
+    if (isInBounds(index)) {
+      Some(index.row * size.width + index.col)
+    } else {
+      None
+    }
 
   def move(marker: Markers.Marker, index: Index): Option[BoardUpdate] =
     fromIndex(index).map { updatePosition(marker, _) }
 
-  // Updates the given position without performing a check. 
-  // @returns		Returns a pair of the marker that was put at the position and the position.
+  // Updates the given position without performing a check.
+  // @returns    Returns a pair of the marker that was put at the position and the position.
   def updatePosition(marker: Markers.Marker, position: Int): BoardUpdate =
     BoardUpdate(
       Board(size, board.updated(position, marker)),

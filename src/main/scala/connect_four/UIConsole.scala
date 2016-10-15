@@ -3,14 +3,14 @@ package ly.jamie.games.connect_four
 object UIConsole {
   val game = new Game
 
-  case class State(identifier: String) 
+  case class State(identifier: String)
   object InProgress extends State("in progress")
   object GameOver extends State("game over")
 
   def main(args: Array[String]): Unit = {
     start
-    input.foreach { ln: String => 
-      if(step(ln) == GameOver) exit
+    input.foreach { ln: String =>
+      if (step(ln) == GameOver) exit
     }
   }
 
@@ -38,11 +38,10 @@ object UIConsole {
     game.move(Move(column))
     render
 
-    if(game.isWin) {
+    if (game.isWin) {
       println("Someone won!")
       GameOver
-    }
-    else InProgress
+    } else InProgress
   }
 
   def optionParse(string: String): Option[Int] =
@@ -56,26 +55,28 @@ object UIConsole {
 
   def input: Iterator[String] =
     Iterator.continually(scala.io.StdIn.readLine).
-      takeWhile( ! List("exit", "quit").contains(_) )
+      takeWhile(!List("exit", "quit").contains(_))
 
   def render = {
     println("Board:")
     val b = game.board
-    val xRange = 0 to b.size.width-1
-    for(r <- 0 to b.size.height-1) {
-      for { c <- xRange
-            m <- game.markerAt(new Index(r,c)) } print(markerIntToString(m))
+    val xRange = 0 to b.size.width - 1
+    for (r <- 0 to b.size.height - 1) {
+      for {
+        c <- xRange
+        m <- game.markerAt(new Index(r, c))
+      } print(markerIntToString(m))
       println("")
     }
-    for(c <- xRange) {
+    for (c <- xRange) {
       print(c)
     }
     println("")
   }
-  
+
   def askMove = println(markerIntToString(game.currentMarker) + "'s move?")
-  
-  def markerIntToString(marker:Markers.Marker): String = marker match {
+
+  def markerIntToString(marker: Markers.Marker): String = marker match {
     case Markers.Empty => "-"
     case Markers.A => "X"
     case Markers.B => "O"

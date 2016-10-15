@@ -3,7 +3,7 @@ package ly.jamie.games.connect_four
 case class Move (col: Int)
 
 class Game {
-	var board = new Board
+	var board = Board.default
 	var currentMarker = Markers.A
 
 	// directions are deltas used to check board locations in the cardinal directions

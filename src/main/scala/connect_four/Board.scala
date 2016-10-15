@@ -6,20 +6,26 @@ object Markers extends Enumeration {
 }
 
 case class Index(row: Int, col: Int) {
-	def tuple(): (Int, Int) = (row, col)
+	lazy val tuple: (Int, Int) = (row, col)
 }
 
-case class Size(width: Int = 7, height: Int = 6)
+object Size {
+  val default = Size(width = 7, height = 6)
+}
+case class Size(width: Int, height: Int)
 
 case class BoardUpdate(board: Board, marker: Markers.Marker, position: Int)
 
-case class Board(size: Size, length: Int, board: Seq[Markers.Marker]) {
-
-  def this(size: Size) = this(size, size.width * size.height,
+object Board {
+  def apply(size: Size): Board = Board(
+    size,
     IndexedSeq.fill(size.width * size.height)(Markers.Empty))
+  lazy val default = Board(Size.default)
+}
+case class Board(size: Size, board: Seq[Markers.Marker]) {
 
-  def this() = this(Size())
-	
+  lazy val length = size.width * size.height
+
 	// Return a list of index objects
 	def getPositionIndices(): IndexedSeq[Index] = 
 	  for { row <- 0 to size.height-1
@@ -40,7 +46,7 @@ case class Board(size: Size, length: Int, board: Seq[Markers.Marker]) {
 	// Updates the given position without performing a check. 
 	// @returns		Returns a pair of the marker that was put at the position and the position.
 	def updatePosition(marker: Markers.Marker, position: Int): BoardUpdate = 
-    BoardUpdate(Board(size, length, board.updated(position, marker)), 
+    BoardUpdate(Board(size, board.updated(position, marker)), 
                 marker, position)
 	
 	def markerAt(index: Index): Option[Markers.Marker] =

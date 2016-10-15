@@ -24,7 +24,7 @@ object UIConsole {
     askMove
 
     println(s"Your move was: \n$ln")
-    
+
     optionParse(ln) match {
       case Some(column) => move(column)
       case None => {
@@ -37,7 +37,7 @@ object UIConsole {
   def move(column: Int): State = {
     game.move(Move(column))
     render
-    
+
     if(game.isWin) {
       println("Someone won!")
       GameOver
@@ -45,7 +45,7 @@ object UIConsole {
     else InProgress
   }
 
-  def optionParse(string: String): Option[Int] = 
+  def optionParse(string: String): Option[Int] =
     try { Some(string.toInt) }
     catch { case e: NumberFormatException => None }
 
@@ -54,9 +54,10 @@ object UIConsole {
     render
   }
 
-  def input: Iterator[String] = Iterator.continually(Console.readLine).
+  def input: Iterator[String] =
+    Iterator.continually(scala.io.StdIn.readLine).
       takeWhile( ! List("exit", "quit").contains(_) )
-  
+
   def render = {
     println("Board:")
     val b = game.board

@@ -7,7 +7,7 @@ class BoardSpec extends Specification {
 	"A new board" should {
 	  isolated
 	  
-	  val board = new Board
+	  val board = Board.default
       "have a height of 6, width of 7, and length of 42" in {
 	    board.size.width == 7 and 
 	    		board.size.height == 6 and

@@ -4,7 +4,7 @@
 
 This was written for practice with Scala.
 
-[![Build Status](https://travis-ci.org/jamiely/connect-four-scala.svg?branch=master)](https://travis-ci.org/jamiely/connect-four-scala)
+[![Build Status](https://travis-ci.org/jamiely/connect-four-scala.svg?branch=master)](https://travis-ci.org/jamiely/connect-four-scala) [![Coverage Status](https://coveralls.io/repos/github/jamiely/connect-four-scala/badge.svg?branch=master)](https://coveralls.io/github/jamiely/connect-four-scala?branch=master)
 
 ## Building
 

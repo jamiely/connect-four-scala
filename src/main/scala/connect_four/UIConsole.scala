@@ -62,7 +62,7 @@ object UIConsole {
 
   def render {
     println("Board:")
-    val b = game.board
+    val b = game.getBoard
     val xRange = 0 to b.size.width - 1
     for (r <- 0 to b.size.height - 1) {
       for {
@@ -78,7 +78,7 @@ object UIConsole {
   }
 
   def askMove {
-    println(markerIntToString(game.currentMarker) + "'s move?")
+    println(markerIntToString(game.getCurrentMarker) + "'s move?")
   }
 
   def markerIntToString(marker: Markers.Marker): String = marker match {

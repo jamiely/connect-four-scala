@@ -7,7 +7,10 @@ class GameOverSpec extends Specification {
   "a gameover check" should {
     isolated
     val untouchedGame = new Game
-    val game = new Game
+    val game = new Game {
+      def setBoard(board: Board) =
+        this.board = board
+    }
 
     // setup a board that looks like 
     // ['', '', '', '', '', '', ''],
@@ -17,8 +20,8 @@ class GameOverSpec extends Specification {
     // ['', '', 'a', '', '', '', ''],
     // ['', '', 'a', '', '', '', '']
 
-    def vert(row: Int) = game.board.move(Markers.A, new Index(row, 2)) match {
-      case Some(BoardUpdate(board, _, _)) => game.board = board
+    def vert(row: Int) = game.getBoard.move(Markers.A, new Index(row, 2)) match {
+      case Some(BoardUpdate(board, _, _)) => game.setBoard(board)
       case None => println("error")
     }
 

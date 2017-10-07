@@ -3,8 +3,8 @@ package ly.jamie.games.connect_four
 case class Move(col: Int)
 
 class Game {
-  var board = Board.default
-  var currentMarker = Markers.A
+  protected var board = Board.default
+  protected var currentMarker = Markers.A
 
   // directions are deltas used to check board locations in the cardinal directions
   val directions = (for {
@@ -17,8 +17,12 @@ class Game {
    * From the passed index, checks whether the position in the passed direction/delta
    * contains the passed marker, and does this `steps` in that direction.
    */
-  def checkPosition(index: Index, marker: Markers.Marker,
-    delta: (Int, Int), steps: Int): Boolean =
+  def checkPosition(
+    index: Index,
+    marker: Markers.Marker,
+    delta: (Int, Int),
+    steps: Int
+  ): Boolean =
     if (steps == 0) {
       true
     } else if (board.isInBounds(index) && board.posIs(marker, index)) {
@@ -32,7 +36,7 @@ class Game {
       false
     }
 
-  def isWin: Boolean = board.getPositionIndices().exists(testWinAtIndex)
+  def isWin: Boolean = board.getPositionIndices.exists(testWinAtIndex)
 
   def testWinAtIndex(index: Index): Boolean = board.markerAt(index) match {
     case None => false
@@ -88,16 +92,13 @@ class Game {
     } else {
       for {
         row <- getFirstEmptyRowInColumn(mv.col)
-        result <- if (row >= 0) {
-          Some(updateBoard(Index(row, mv.col)))
-        } else {
-          None
-        }
-      } yield result
+        if row >= 0
+      } yield updateBoard(Index(row, mv.col))
     }
 
   def markerAt(index: Index): Option[Markers.Marker] = board.markerAt(index)
 
   def getCurrentMarker: Markers.Marker = currentMarker
 
+  def getBoard: Board = board
 }

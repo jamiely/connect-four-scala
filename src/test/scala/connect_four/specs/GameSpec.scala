@@ -9,7 +9,7 @@ class GameSpec extends Specification {
     val game = new Game
 
     "have a board" in {
-      game.board must haveClass[Board]
+      game.getBoard must haveClass[Board]
     }
     "have directions" in {
       game.directions must be equalTo (List((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)))

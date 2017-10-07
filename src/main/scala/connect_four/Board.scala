@@ -28,13 +28,13 @@ case class Board(size: Size, board: Seq[Markers.Marker]) {
   lazy val length = size.width * size.height
 
   // Return a list of index objects
-  def getPositionIndices(): IndexedSeq[Index] =
+  lazy val getPositionIndices: IndexedSeq[Index] =
     for {
       row <- 0 to size.height - 1
       col <- 0 to size.width - 1
-    } yield new Index(row, col)
+    } yield Index(row, col)
 
-  def isEmpty: Boolean = board.forall(x => x == Markers.Empty)
+  lazy val isEmpty: Boolean = board.forall(_ == Markers.Empty)
 
   def isInBounds(index: Index): Boolean = index.row >= 0 &&
     index.row < size.height && index.col >= 0 && index.col < size.width
@@ -73,6 +73,6 @@ case class Board(size: Size, board: Seq[Markers.Marker]) {
     result.getOrElse(false)
   }
 
-  def hasMovesLeft: Boolean = board.exists { _ == Markers.Empty }
+  lazy val hasMovesLeft: Boolean = board.exists { _ == Markers.Empty }
 
 }

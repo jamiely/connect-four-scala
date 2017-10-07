@@ -51,7 +51,7 @@ class GamePlaySpec extends Specification {
 
     "not allow a move to be made in a full column" in {
       val move = new Move(1)
-      (1 to game.board.size.height).foreach(_ =>
+      (1 to game.getBoard.size.height).foreach(_ =>
         game.move(move))
       game.move(move) must beNone
     }

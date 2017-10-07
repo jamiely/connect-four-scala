@@ -1,7 +1,7 @@
 package ly.jamie.games.connect_four
 
 // scalastyle:off regex
-object UIConsole {
+trait UIConsoleLike {
   val game = new Game
 
   case class State(identifier: String)
@@ -56,8 +56,10 @@ object UIConsole {
     render
   }
 
+  protected def readLine: String
+
   def input: Iterator[String] =
-    Iterator.continually(scala.io.StdIn.readLine).
+    Iterator.continually(readLine).
       takeWhile(!List("exit", "quit").contains(_))
 
   def render {
